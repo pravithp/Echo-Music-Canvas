@@ -1,6 +1,21 @@
 {
   "items": [
     {
+      "song": "Like That",
+      "artist": "Kendrick Lamar",
+      "url": "https://canvas.echomusic.fun/Song/leithxd-likethat.mp4"
+    },
+    {
+      "song": "Pagal Banawe",
+      "artist": "Filmy, Sinta Bhai",
+      "url": "https://canvas.echomusic.fun/Song/mandleshpratapsingh305-prog-27703.mp4"
+    },
+    {
+      "song": "Aaho Raja",
+      "artist": "Pawan Singh",
+      "url": "https://canvas.echomusic.fun/Song/mandleshpratapsingh305-prog-27710.mp4"
+    },
+    {
       "song": "Dracula",
       "artist": "Tame Impala",
       "url": "https://canvas.echomusic.app/Song/1.mp4"
@@ -934,6 +949,21 @@
       "song": "Never Ending Story",
       "artist": "Gaten Matarazzo and Gabriella Pizzolo",
       "url": "https://canvas.echomusic.fun/Album/katx-dev-1000265947.mp4"
+    },
+    {
+      "song": "Karma (Live from the Hollywood Bowl)",
+      "artist": "AJR",
+      "url": "https://canvas.echomusic.fun/Album/katx-dev-1000265949.mp4"
+    },
+    {
+      "song": "The last letter",
+      "artist": "Maan Panu",
+      "url": "https://canvas.echomusic.fun/Song/sumankar892-commits-1000229132.mp4"
+    },
+    {
+      "song": "The last letter",
+      "artist": "Maan Pannu",
+      "url": "https://canvas.echomusic.fun/Album/sumankar892-commits-1000229132.mp4"
     }
   ]
 }

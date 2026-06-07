@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let gitHubUsername = null;
     let selectedFile = null;
     let fileIsValid = false;
-    let canvasSourceMode = 'upload'; // 'upload' | 'existing'
+    let canvasSourceMode = 'upload'; 
     let selectedExistingUrl = null;
-    let allCanvasItems = []; // loaded from canvas.json for the existing search
+    let allCanvasItems = []; 
 
     const loginSection  = document.getElementById('login-section');
     const formSection   = document.getElementById('form-section');
@@ -521,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function submitWithNewUpload(entries, destDir) {
-        const primaryEntry = entries[0]; // use first song name for file naming
+        const primaryEntry = entries[0]; 
         const sanitizedOriginalName = selectedFile.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_');
         const cleanName    = sanitizedOriginalName.split('.')[0];
         const newFilename  = `${gitHubUsername.toLowerCase()}-${sanitizedOriginalName}`;
@@ -624,13 +624,12 @@ document.addEventListener('DOMContentLoaded', () => {
             throw new Error('canvas.json items database is missing or corrupt.');
         }
 
-        for (const entry of entries) {
-            canvasObj.items.push({
-                song:   entry.song,
-                artist: entry.artist,
-                url:    canvasVideoUrl
-            });
-        }
+        const newEntries = entries.map(entry => ({
+            song:   entry.song,
+            artist: entry.artist,
+            url:    canvasVideoUrl
+        }));
+        canvasObj.items.unshift(...newEntries);
 
         const updatedContent = encodeBase64Utf8(JSON.stringify(canvasObj, null, 2) + '\n');
 

@@ -51,8 +51,13 @@
                 <img src="App Logo/echo.png" alt="Echo Music Logo" class="app-icon">
                 <span class="copyright">ECHO MUSIC</span>
             </a>
-            <div class="nav-links">
-                <a href="https://support.iad1tya.cyou" target="_blank" rel="noopener" class="nav-support-btn">Support</a>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="developer.html" class="nav-support-btn"><i class="fas fa-code" style="margin-right: 0.3rem;"></i>Developer</a>
+                <a href="pending.html" class="nav-support-btn nav-pending-btn"><i class="fas fa-code-pull-request" style="margin-right: 0.3rem;"></i>Pending PRs</a>
+                <a href="https://support.iad1tya.cyou" target="_blank" rel="noopener" class="nav-support-btn"><i class="fas fa-hand-holding-heart" style="margin-right: 0.3rem;"></i>Support</a>
             </div>
         </div>
     </nav>
@@ -366,6 +371,25 @@
         });
 
         document.addEventListener('DOMContentLoaded', loadCanvases);
+    </script>
+    <script>
+        (function() {
+            const btn = document.getElementById('nav-hamburger');
+            const menu = document.getElementById('nav-links');
+            if (!btn || !menu) return;
+            btn.addEventListener('click', () => {
+                const open = menu.classList.toggle('nav-open');
+                btn.classList.toggle('nav-hamburger--open', open);
+                btn.setAttribute('aria-expanded', open);
+            });
+            menu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    menu.classList.remove('nav-open');
+                    btn.classList.remove('nav-hamburger--open');
+                    btn.setAttribute('aria-expanded', 'false');
+                });
+            });
+        })();
     </script>
 </body>
 

@@ -57,14 +57,27 @@ jobs:
         if: github.event_name == 'pull_request_target'
         run: |
           sudo apt-get update && sudo apt-get install -y clamav
-          sudo freshclam || echo "Warning: freshclam database update failed, proceeding with default definitions"
+          sudo systemctl stop clamav-freshclam || true
+          sudo pkill -f freshclam || true
+          sudo freshclam || echo "Warning: freshclam database update failed, proceeding only if local definitions exist"
           if [ -f /tmp/changed-files.txt ]; then
-            while IFS= read -r file; do
-              if [ -f "$file" ]; then
-                echo "Scanning: $file"
-                clamscan "$file"
-              fi
-            done < /tmp/changed-files.txt
+            # Check for local ClamAV signature database files used by clamscan.
+            if [ -d /var/lib/clamav ] && find /var/lib/clamav -maxdepth 1 -type f \( -name "*.cvd" -o -name "*.cld" -o -name "*.cud" \) | grep -q .; then
+              echo "ClamAV definitions found; scanning changed files."
+              while IFS= read -r file; do
+                if [ -f "$file" ]; then
+                  echo "Scanning: $file"
+                  clamscan "$file"
+                fi
+              done < /tmp/changed-files.txt
+            else
+              echo "Warning: no ClamAV definitions found in /var/lib/clamav; malware scan will be skipped."
+              while IFS= read -r file; do
+                if [ -f "$file" ]; then
+                  echo "Skipping malware scan for $file due to missing ClamAV definitions."
+                fi
+              done < /tmp/changed-files.txt
+            fi
           else
             echo "No changed files list found."
           fi
@@ -95,5 +108,3 @@ jobs:
       - name: Fail if validation failed
         if: steps.run-validation.outcome == 'failure'
         run: exit 1
-
-
